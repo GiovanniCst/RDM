@@ -7,6 +7,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Locale;
+
+import static pw.costantini.rdm.R.string.reddito;
+
 public class Main extends AppCompatActivity {
 
     @Override
@@ -18,90 +24,94 @@ public class Main extends AppCompatActivity {
 
     public void calcola (View view) {
 
-
-
-
-        //Ottieni l'elemento che contiene il valore della fattura
+        // FATTURA: Ottieni l'elemento che contiene il valore della fattura
         EditText contenitore_valore_fattura =
                 (EditText) findViewById(R.id.input_fatturato);
 
-        //Ottieni il valore dell'elemento
+        // FATTURA: Ottieni il valore dell'elemento
         String valore_fattura = contenitore_valore_fattura.getText().toString();
 
 
-        //CONTROLLO ESISTENZA DATO SUL FATTURATO
+        //FATTURA: CONTROLLO ESISTENZA DATO SUL FATTURATO
 
         if(TextUtils.isEmpty(valore_fattura)) {
             contenitore_valore_fattura.setError("Inserisci il valore della fattura");
             return;
         }
 
-        //Converti il valore in un numero
+        //FATTURA: Converti il valore in un numero double
         Double importo_fattura = Double.parseDouble(valore_fattura);
 
-        //Ottieni l'elemento che contiene il coefficiente di redditività
+        //COEFF REDD.: Ottieni l'elemento che contiene il coefficiente di redditività
         EditText contenitore_coefficiente_redditivita =
                  (EditText) findViewById(R.id.input_c_redd);
 
-        //Ottieni il valore dell'elemento
+        //COEFF REDD.: Ottieni il valore dell'elemento
         String valore_coefficiente_redditivita = contenitore_coefficiente_redditivita.getText().toString();
 
-        //CONTROLLO ESISTENZA DATO SUL COEFFICIENTE DI REDDITIVITA'
+        //COEFF REDD.: CONTROLLO ESISTENZA DATO SUL COEFFICIENTE DI REDDITIVITA'
 
         if(TextUtils.isEmpty(valore_coefficiente_redditivita)) {
             contenitore_coefficiente_redditivita.setError("Inserisci il valore della coefficiente di redditività");
             return;
         }
 
-        //Converti il valore in un numero
+        //COEFF REDD.: Converti il valore in un numero double
         Double coefficiente_redditivita = Double.parseDouble(valore_coefficiente_redditivita);
 
-        Double reddito = 0.0;
-
+        //ALGO: Calcolo della base imponibile
+        double reddito = 0.0;
         reddito = importo_fattura / 100 * coefficiente_redditivita;
 
-        //Converti il valore del reddito in testo
-        String reddito_string = String.valueOf(reddito);
+        //ALGO: Magia Magia per gestire le valute
+        BigDecimal redditoRounded = new BigDecimal(reddito)
+                .setScale(2, BigDecimal.ROUND_HALF_UP);
 
-        //Ottieni l'elemento che conterrà il valore del reddito
+        NumberFormat valutaMaker = NumberFormat.getCurrencyInstance(new Locale("it", "IT"));
+
+        //ALGO: Converti il valore del reddito in testo
+        String reddito_string = valutaMaker.format(redditoRounded);
+
+        //OUTPUT: Ottieni l'elemento che conterrà il valore del reddito
         TextView reddito_content =
                 (TextView) findViewById(R.id.output_reddito);
 
-        //Ottieni l'elemento che contiene la pecentuale per inps
+        //COEFF INPS: Ottieni l'elemento che contiene la percentuale per inps
         EditText contenitore_inps =
                 (EditText) findViewById(R.id.input_inps);
 
-       //Ottieni il valore dell'elemento
+       //COEFF INPS: Ottieni il valore dell'elemento
         String valore_cnt_inps = contenitore_inps.getText().toString();
 
-        //CONTROLLO ESISTENZA DATO SULLA % INPS
+        //COEFF INPS: CONTROLLO ESISTENZA DATO SULLA % INPS
 
         if(TextUtils.isEmpty(valore_cnt_inps)) {
             contenitore_inps.setError("Inserisci il valore della % INPS");
             return;
         }
 
-        //Converti il valore in un numero
+        //COEFF INPS: Converti il valore in un numero double
         Double percent_inps = Double.parseDouble(valore_cnt_inps);
 
-
-        Double contributi_inps = 0.0;
-
+        //ALGO: Calcolo della quota inps
+        double contributi_inps = 0.0;
         contributi_inps = reddito / 100 * percent_inps;
 
-        //Converti i contributi INPS in testo
-        String inps_string = String.valueOf(contributi_inps);
+        //ALGO: Magia Magia per gestire le valute
+        BigDecimal contributiInpsRounded = new BigDecimal(contributi_inps)
+                .setScale(2, BigDecimal.ROUND_HALF_UP);
 
-        //Ottieni l'elemento che conterrà il valore dell'inps da versare
+        ////ALGO: Converti i contributi INPS in testo
+        String inps_string = valutaMaker.format(contributiInpsRounded);
+
+        //OUTPUT: Ottieni l'elemento che conterrà il valore dell'inps da versare
         TextView inps_output =
                 (TextView) findViewById(R.id.output_contributi_inps);
 
-
-
-        //Mostra il nuovo valore nell'elemento testo
+        //PUBLISH: Mostra il nuovo valore nell'elemento testo
         reddito_content.setText(reddito_string);
         inps_output.setText(inps_string);
-        //String.format("%1$,.2f", myDouble)
+
 
     }
 }

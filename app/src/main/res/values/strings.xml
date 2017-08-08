@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Contribuzione</string>
+    <string name="valore_netto_della_fattura">Valore netto della fattura</string>
+    <string name="calcola">Calcola</string>
+    <string name="c_redditivita">% di redd.tà</string>
+    <string name="_67_00">67.00</string>
+    <string name="contr_inps">Quota INPS da versare:</string>
+    <string name="_25_72">25.72</string>
+    <string name="reddito">Reddito imponibile:</string>
+    <string name="base_imponibile">Base imponibile:</string>
+    <string name="coefficiente_redditivit">Coefficiente % \nRedditività</string>
+    <string name="contribuzione_inps">Coefficiente % \nInps</string>
+    <string name="coefficiente_tassazione">Coefficiente % \nTassazione</string>
+    <string name="_5_00">5.00</string>
+    <string name="percentage_sign">%</string>
+    <string name="euro__sign">€</string>
+    <string name="quota_tassazione_da_versare">Quota Tassazione da versare:</string>
+</resources>
