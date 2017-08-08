@@ -2,22 +2,70 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/back"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/black"
     tools:context="pw.costantini.rdm.Main">
+
+    <TextView
+        android:id="@+id/output_netto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="0dp"
+        android:layout_marginStart="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/label_netto"
+        app:layout_constraintRight_toRightOf="@+id/output_tasse" />
+
+    <TextView
+        android:id="@+id/label_netto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="48dp"
+        android:text="Ti rimangono:"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@+id/label_tass_vers"
+        app:layout_constraintTop_toBottomOf="@+id/label_tass_vers" />
+
+    <TextView
+        android:id="@+id/output_imp_tassabile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="0dp"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="18sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/label_reddito_imp_tasse"
+        app:layout_constraintRight_toRightOf="@+id/output_reddito" />
+
+    <TextView
+        android:id="@+id/label_reddito_imp_tasse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/imponibile_tassabile"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="@+id/label_reddito"
+        app:layout_constraintTop_toBottomOf="@+id/label_reddito" />
 
     <TextView
         android:id="@+id/output_tasse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
         android:layout_marginRight="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="18sp"
-        app:layout_constraintRight_toRightOf="@+id/output_contributi_inps"
         app:layout_constraintBaseline_toBaselineOf="@+id/label_tass_vers"
-        />
+        app:layout_constraintRight_toRightOf="@+id/output_contributi_inps" />
 
     <EditText
         android:id="@+id/input_fatturato"
@@ -28,6 +76,8 @@
         android:hint="@string/valore_netto_della_fattura"
         android:inputType="numberDecimal"
         android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,12 +86,12 @@
         android:id="@+id/input_c_redd"
         android:layout_width="55dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="numberDecimal"
         android:text="@string/_67_00"
         android:textColor="@android:color/holo_green_dark"
         app:layout_constraintLeft_toLeftOf="@+id/label_coeff_redd"
-        android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/label_coeff_redd" />
 
     <EditText
@@ -70,9 +120,9 @@
         android:id="@+id/percent_symbol_tax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="start"
         android:text="@string/percentage_sign"
         android:textAlignment="textStart"
-        android:layout_gravity="start"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/input_tassazione"
@@ -82,9 +132,9 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="start"
         android:text="@string/percentage_sign"
         android:textAlignment="textStart"
-        android:layout_gravity="start"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/input_inps"
@@ -97,7 +147,9 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:text="@string/euro__sign"
+        android:textColor="@android:color/white"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/input_fatturato"
         app:layout_constraintLeft_toRightOf="@+id/input_fatturato" />
 
@@ -106,21 +158,21 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:text="@string/calcola"
-        android:onClick="calcola"
         android:layout_marginBottom="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@color/colorAccent"
+        android:onClick="calcola"
+        android:text="@string/calcola"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/percent_symbol_redd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="start"
         android:text="@string/percentage_sign"
         android:textAlignment="textStart"
-        android:layout_gravity="start"
         android:textColor="@android:color/holo_green_dark"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/input_c_redd"
@@ -130,48 +182,46 @@
         android:id="@+id/output_reddito"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="0dp"
         android:textColor="@android:color/darker_gray"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/label_reddito"
-        android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="@+id/label_tassazione" />
 
     <TextView
         android:id="@+id/label_reddito"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="24dp"
         android:text="@string/reddito"
         android:textColor="@android:color/darker_gray"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="@+id/input_c_redd"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/input_c_redd"
-        android:layout_marginLeft="0dp" />
+        app:layout_constraintTop_toBottomOf="@+id/input_c_redd" />
 
     <TextView
         android:id="@+id/output_contributi_inps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/label_contribuiti_inps"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="@+id/output_reddito"
-        />
+        app:layout_constraintRight_toRightOf="@+id/output_imp_tassabile" />
 
     <TextView
         android:id="@+id/label_contribuiti_inps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="32dp"
         android:text="@string/contr_inps"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="@+id/label_reddito"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@+id/label_reddito" />
+        app:layout_constraintLeft_toLeftOf="@+id/label_reddito_imp_tasse"
+        app:layout_constraintTop_toBottomOf="@+id/label_reddito_imp_tasse" />
 
     <TextView
         android:id="@+id/label_tass_vers"
@@ -203,8 +253,8 @@
         android:text="@string/contribuzione_inps"
         android:textColor="@android:color/holo_orange_dark"
         app:layout_constraintBaseline_toBaselineOf="@+id/label_coeff_redd"
-        app:layout_constraintRight_toLeftOf="@+id/label_tassazione"
-        app:layout_constraintLeft_toRightOf="@+id/label_coeff_redd" />
+        app:layout_constraintLeft_toRightOf="@+id/label_coeff_redd"
+        app:layout_constraintRight_toLeftOf="@+id/label_tassazione" />
 
     <TextView
         android:id="@+id/label_tassazione"
@@ -213,7 +263,7 @@
         android:text="@string/coefficiente_tassazione"
         android:textColor="@android:color/holo_blue_dark"
         app:layout_constraintBaseline_toBaselineOf="@+id/label_perc_inps"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/label_perc_inps" />
+        app:layout_constraintLeft_toRightOf="@+id/label_perc_inps"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
