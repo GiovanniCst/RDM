@@ -1,5 +1,6 @@
 package pw.costantini.rdm;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -7,27 +8,87 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
+import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import static android.R.attr.value;
 import static pw.costantini.rdm.R.string.reddito;
 
 public class Main extends AppCompatActivity {
+
+    //SHAREDPREFERENCES: Inizializzazione variabili per salvataggio dei coefficienti modificati dagli utenti
+    EditText save_coeff_redd;
+    EditText save_coeff_inps;
+    EditText save_coeff_tax;
+    //
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Find the toolbar view inside the activity layout
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Sets the Toolbar to act as the ActionBar for this Activity window.
+        // Make sure the toolbar exists in the activity and is not null
+        setSupportActionBar(toolbar);
+
+        //SHAREDPREFERENCES: Binding delle variabili agli elementi dell'interfaccia
+        save_coeff_redd = (EditText) findViewById(R.id.input_c_redd);
+        save_coeff_inps = (EditText) findViewById(R.id.input_inps);
+        save_coeff_tax = (EditText) findViewById(R.id.input_tassazione);
+        //
+
+        //SHAREDPREFERENCES: Inizializzazione della funzionalità Shared Preference
+        SharedPreferences sharedPref = getSharedPreferences("preferenze", Context.MODE_PRIVATE);
+        //
+
+        //SHAREDPREFERENCES: Assegnazione a variabili dei valori salvati precedentemente (o dei default se le chiavi sono vuote)
+        String red_rate = sharedPref.getString("red_rate", "67.00");
+        String inps_rate = sharedPref.getString("inps_rate", "25.72");
+        String tax_rate = sharedPref.getString("tax_rate", "5.00");
+        //
+
+        //SHAREDPREFERENCES: Assegnazione del contenuto delle variabili ai vari elementi
+        save_coeff_redd.setText(red_rate);
+        save_coeff_inps.setText(inps_rate);
+        save_coeff_tax.setText(tax_rate);
+        //
     }
+
+    // Menu icons are inflated just as they were with actionbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+
+
+    //SHAREDPREFERENCES: Metodo che salva i coefficienti di calcolo
+    public void saveInfo(View view) {
+        SharedPreferences sharedPref = getSharedPreferences("preferenze", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("red_rate",save_coeff_redd.getText().toString());
+        editor.putString("inps_rate",save_coeff_inps.getText().toString());
+        editor.putString("tax_rate",save_coeff_tax.getText().toString());
+        editor.apply();
+
+        // Avviso di salvataggio disabilitato --> Toast.makeText(this, "all saved", Toast.LENGTH_LONG).show();
+    }
+    //
 
     public void calcola (View view) {
 
-        // FATTURA: Ottieni l'elemento che contiene il valore della fattura
+       // FATTURA: Ottieni l'elemento che contiene il valore della fattura
         EditText contenitore_valore_fattura =
                 (EditText) findViewById(R.id.input_fatturato);
 
@@ -210,5 +271,11 @@ public class Main extends AppCompatActivity {
         imponibile_tassabile_output.setText(tax_string);
         tasse_output.setText(taxes_str);
         netto_output.setText(netto_str);
+
+        //Salva i campi che contengono i coefficienti di calcolo (vedi metodo sopra)
+        saveInfo(view);
+
     }
+
+
 }

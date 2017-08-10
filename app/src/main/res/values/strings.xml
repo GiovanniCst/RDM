@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Contribuzione</string>
+    <string name="app_name">Nuovo regime forfetario agevolato</string>
     <string name="valore_netto_della_fattura">Valore netto della fattura</string>
     <string name="calcola">Calcola</string>
     <string name="c_redditivita">% di redd.tà</string>
