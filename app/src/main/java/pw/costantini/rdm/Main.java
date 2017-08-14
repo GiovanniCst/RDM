@@ -1,27 +1,33 @@
 package pw.costantini.rdm;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.support.v7.widget.Toolbar;
+
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import android.view.Menu;
+import android.content.SharedPreferences;
+
 import static android.R.attr.value;
 import static pw.costantini.rdm.R.string.reddito;
+import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.Toast;
 
 public class Main extends AppCompatActivity {
+
+    //SAMPLE COMMENT
 
     //SHAREDPREFERENCES: Inizializzazione variabili per salvataggio dei coefficienti modificati dagli utenti
     EditText save_coeff_redd;
@@ -38,7 +44,12 @@ public class Main extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
+
+        // Mostra l'icona dell' app sulla toolbar
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         //SHAREDPREFERENCES: Binding delle variabili agli elementi dell'interfaccia
         save_coeff_redd = (EditText) findViewById(R.id.input_c_redd);
@@ -71,6 +82,20 @@ public class Main extends AppCompatActivity {
         return true;
     }
 
+    // Lancia la seconda attività alla pressione del menu informazioni
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.informazioni:
+//                Toast.makeText(this, "Informazioni qui", Toast.LENGTH_LONG).show();
+                Intent launchNewIntent = new Intent(Main.this,infoAct.class);
+                startActivityForResult(launchNewIntent, 0);
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
 
 
     //SHAREDPREFERENCES: Metodo che salva i coefficienti di calcolo
