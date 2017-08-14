@@ -27,7 +27,7 @@ import android.widget.Toast;
 
 public class Main extends AppCompatActivity {
 
-    //SAMPLE COMMENT
+    //SAMPLE COMMENT --
 
     //SHAREDPREFERENCES: Inizializzazione variabili per salvataggio dei coefficienti modificati dagli utenti
     EditText save_coeff_redd;
